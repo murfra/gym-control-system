@@ -1,4 +1,4 @@
-package com.academia.model;
+package com.gym.system.model;
 
 import java.time.LocalDate;
 
