@@ -1,6 +1,9 @@
 package com.gym.system.model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Aluno extends Pessoa {
@@ -9,11 +12,23 @@ public class Aluno extends Pessoa {
 
     private int numeroMatricula;
     private LocalDate dataMatricula;
+    private Experiencia nivelExperiencia;
     private LocalDate dataUltimoPagamento;
+    // O Map garante que cada dia tenha apenas um treino
+    private Map<DayOfWeek, TreinoDiario> cronograma = new HashMap<>();
 
     public Aluno(int cpf, int telefone, String nome, LocalDate dataNascimento, String email, Endereco endereco) {
         this.numeroMatricula = contadorMatricula.getAndIncrement();
         this.dataMatricula = LocalDate.now();
+        this.nivelExperiencia = Experiencia.INICIANTE;
+        super(cpf, telefone, nome, dataNascimento, email, endereco);
+    }
+
+    public Aluno(int cpf, int telefone, String nome, LocalDate dataNascimento, String email, Endereco endereco, Experiencia nivelExperiencia) {
+        this.numeroMatricula = contadorMatricula.getAndIncrement();
+        this.dataMatricula = LocalDate.now();
+        this.nivelExperiencia = Experiencia.INICIANTE;
+        this.nivelExperiencia = nivelExperiencia;
         super(cpf, telefone, nome, dataNascimento, email, endereco);
     }
 
@@ -31,5 +46,12 @@ public class Aluno extends Pessoa {
 
     public void setDataUltimoPagamento(LocalDate dataUltimoPagamento) {
         this.dataUltimoPagamento = dataUltimoPagamento;
+    }
+
+    /*
+    * Utilizado pelo serviço GestaoTreino
+    * */
+    public Map<DayOfWeek, TreinoDiario> getCronograma() {
+        return cronograma;
     }
 }
