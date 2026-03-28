@@ -10,7 +10,7 @@
     - getters e setters para cada atributo.
   - **TreinoDiario**:
     - diaDaSemana, grupoMuscular e exercicios;
-    - Construtor _vazio_;f
+    - Construtor _vazio_;
     - getters e setters para cada atributo.
 - Enum adicionado: **Experiencia** (Um aluno possui um nível de experiência, iniciante, intermediário ou avançado);
 - Novos: atributos | métodos (_getters e setters_):
