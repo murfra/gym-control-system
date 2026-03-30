@@ -1,10 +1,11 @@
 package com.gym.system.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable {
     private LocalDate dataAtual = LocalDate.now(ZoneId.systemDefault());
     private int cpf;
     private int telefone;
@@ -17,7 +18,7 @@ public abstract class Pessoa {
     public Pessoa(int cpf, int telefone, String nome, LocalDate dataNascimento, String email, Endereco endereco) {
         this.cpf = cpf;
         this.telefone = telefone;
-        this.idade = Period.between(dataNascimento, dataAtual).getYears();
+        //this.idade = Period.between(dataNascimento, dataAtual).getYears();
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.email = email;
@@ -74,5 +75,19 @@ public abstract class Pessoa {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa {" +
+                "dataAtual=" + dataAtual +
+                ", cpf=" + cpf +
+                ", telefone=" + telefone +
+                ", idade=" + idade +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", endereco=" + endereco +
+                ", dataNascimento=" + dataNascimento +
+                '}';
     }
 }

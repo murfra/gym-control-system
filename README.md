@@ -1,6 +1,25 @@
-# Sistema de Gerenciamento de Academia
+# Sistema de Controle de Academia
 
 ## Histórico de Alterações
+
+### Dia 30/03/26
+- Classe **Pessoa** implementa `Serializable`;
+- Novo Enum: `Turno`;
+- Nova interface: `IGestaoAcesso`;
+- Novo serviço: `GestaoAcessoImpl`;
+- Novo pacote: **io**;
+  - Classes adicionadas:
+    - `AlunoOutputStream` e `AlunoInputStream`;
+    - `FuncionarioOutputStream` e `FuncionarioInputStream`;
+- Pacote **server** foi renomeado para **network**, a classe `GymServer` foi apagada e agora possui cliente e servidor
+juntos na pasta:
+  - Foram adicionados: `AcademiaClient` e `AcademiaServer` (Implementados para testar `AlunoOutputStream` e `AlunoInputStream`);
+- Na classe `AcademiaClient` foram feitos os testes para os seguintes OutputStreams de destino:
+  - Saída padrão (`System.out`)
+  - Um arquivo (`FileOutputStream`)
+  - Servidor Remoto (**TCP**)
+- Além disso, ainda na classe `AcademiaClient` há uma separação de quais testes serão feitos, se o dos alunos ou dos
+funcionários, para isso, bastar enviar um byte para que o servidor defina qual `tipo` de dado receberá.
 
 ### Dia 28/03/26
 - Novas classes:
@@ -17,7 +36,7 @@
   - **Pessoa**: Idade | getIdade (calculado com base na data de nascimento)
   - **Aluno**: Experiência e Cronograma (de treino) | getCronograma
 - Novo construtor para Aluno, sem necessidade de especificar experiência
-- Criação da Interface: **GestaoTreino**
+- Criação da _Interface_: **GestaoTreino**
   - Métodos: **criarTreino**, **buscarTreino**, **atualizarTreino**, **excluirTreino** e **avaliarDesempenho**
 - Serviço Implementado: **Gestão de Treino**. Exemplo de utilização:
   ```Java
@@ -50,7 +69,7 @@
 
 ### Dia 25/03/26
 - Nova estrutura de pastas:
-    - Package adicionado: **com.academia**;
+    - Pacote adicionado: **com.academia**;
     - Pasta model para as entidades.
 - Novas classes criadas: **Academia, Aluno, Funcionario, Instrutor e Visitante**;
 - Classe **Pessoa** definida como **abstrata**;

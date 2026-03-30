@@ -25,11 +25,8 @@ public class Aluno extends Pessoa {
     }
 
     public Aluno(int cpf, int telefone, String nome, LocalDate dataNascimento, String email, Endereco endereco, Experiencia nivelExperiencia) {
-        this.numeroMatricula = contadorMatricula.getAndIncrement();
-        this.dataMatricula = LocalDate.now();
-        this.nivelExperiencia = Experiencia.INICIANTE;
+        this(cpf, telefone, nome, dataNascimento, email, endereco);
         this.nivelExperiencia = nivelExperiencia;
-        super(cpf, telefone, nome, dataNascimento, email, endereco);
     }
 
     public int getNumeroMatricula() {
@@ -40,6 +37,14 @@ public class Aluno extends Pessoa {
         return dataMatricula;
     }
 
+    public Experiencia getNivelExperiencia() {
+        return nivelExperiencia;
+    }
+
+    public void setNivelExperiencia(Experiencia nivelExperiencia) {
+        this.nivelExperiencia = nivelExperiencia;
+    }
+
     public LocalDate getDataUltimoPagamento() {
         return dataUltimoPagamento;
     }
@@ -48,10 +53,13 @@ public class Aluno extends Pessoa {
         this.dataUltimoPagamento = dataUltimoPagamento;
     }
 
-    /*
-    * Utilizado pelo serviço GestaoTreino
-    * */
+    // Utilizado pelo serviço GestaoTreino
     public Map<DayOfWeek, TreinoDiario> getCronograma() {
         return cronograma;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
