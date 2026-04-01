@@ -4,63 +4,69 @@ import com.gym.system.model.Instrutor;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
+import java.io.PrintStream;
+import java.util.Arrays;
 
 public class InstrutorOutputStream extends OutputStream {
     private Instrutor[] instrutores;
     private int quantidade;
     private int bytesPorAtributo;
-    private OutputStream destino;
+    private OutputStream out;
 
-    public InstrutorOutputStream(Instrutor[] instrutores, int quantidade, int bytesPorAtributo, OutputStream destino) {
+    public InstrutorOutputStream(Instrutor[] instrutores, int quantidade, int bytesPorAtributo, OutputStream out) {
         this.instrutores = instrutores;
         this.quantidade = quantidade;
         this.bytesPorAtributo = bytesPorAtributo;
-        this.destino = destino;
+        this.out = out;
     }
 
-    // Método que percorre o array e envia os dados
-    public void enviarDados() throws IOException {
-        for (int i = 0; i < quantidade; i++) {
-            Instrutor inst = instrutores[i];
+    public void writeSystem() throws IOException {
+        PrintStream opLocal = new PrintStream(this.out);
 
-            // Atributos: CPF (int) -> Nome (String) -> Email (String) -> Telefone (int)
-            escreverIntComoBytes(inst.getCpf());
-            escreverStringLimitada(inst.getNome());
-            escreverStringLimitada(inst.getEmail());
-            escreverIntComoBytes(inst.getTelefone());
-        }
-        destino.flush();
-    }
+        int qtdInstrutores = instrutores.length;
+        opLocal.println("Quantidade de Instrutores: " + qtdInstrutores);
 
-    // Auxiliar para gravar Strings respeitando o limite de bytes do enunciado
-    private void escreverStringLimitada(String texto) throws IOException {
-        byte[] b = texto.getBytes(StandardCharsets.UTF_8);
-        for (int i = 0; i < bytesPorAtributo; i++) {
-            if (i < b.length) {
-                destino.write(b[i]);
-            } else {
-                destino.write(0); // Preenche com byte zero se a string for menor que o limite
+        for (Instrutor instrutor : instrutores) {
+            if (instrutor != null) {
+                String cpf = instrutor.getCpf();
+                String cref = instrutor.getCref();
+                String nome = instrutor.getNome();
+                String alunos = instrutor.getAlunos().toString();
+                String telefone = instrutor.getTelefone();
+                String email = instrutor.getEmail();
+
+                opLocal.println("CPF: " + cpf +
+                                "\nCREF: " + cref +
+                                "\nNome: " + nome +
+                                "\nAlunos: " + alunos +
+                                "\nTelefone: " + telefone +
+                                "\nE-mail: " + email);
             }
         }
     }
 
-    // Auxiliar para gravar o Int (4 bytes) - ajustando para caber no limite definido
-    private void escreverIntComoBytes(int valor) throws IOException {
-        // Envia o int byte a byte
-        destino.write((valor >>> 24) & 0xFF);
-        destino.write((valor >>> 16) & 0xFF);
-        destino.write((valor >>> 8) & 0xFF);
-        destino.write(valor & 0xFF);
+    public void writeFile() throws IOException {
+        writeSystem();
+    }
 
-        // Se o bytesPorAtributo for maior que 4, preenche o resto
-        for(int i = 4; i < bytesPorAtributo; i++) {
-            destino.write(0);
-        }
+    public void writeTCP() throws IOException {
+        writeSystem();
     }
 
     @Override
     public void write(int b) throws IOException {
-        destino.write(b);
+        if (this.out != null) {
+            this.out.write(b);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "InstrutorOutputStream{" +
+                "instrutores=" + Arrays.toString(instrutores) +
+                ", quantidade=" + quantidade +
+                ", bytesPorAtributo=" + bytesPorAtributo +
+                ", out=" + out +
+                '}';
     }
 }

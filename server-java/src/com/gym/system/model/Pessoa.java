@@ -2,20 +2,19 @@ package com.gym.system.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.ZoneId;
 
 public abstract class Pessoa implements Serializable {
     private LocalDate dataAtual = LocalDate.now(ZoneId.systemDefault());
-    private int cpf;
-    private int telefone;
     private int idade;
+    private String cpf;
+    private String telefone;
     private String nome;
     private String email;
     private Endereco endereco;
     private LocalDate dataNascimento;
 
-    public Pessoa(int cpf, int telefone, String nome, LocalDate dataNascimento, String email, Endereco endereco) {
+    public Pessoa(String cpf, String nome, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
         this.cpf = cpf;
         this.telefone = telefone;
         //this.idade = Period.between(dataNascimento, dataAtual).getYears();
@@ -25,24 +24,12 @@ public abstract class Pessoa implements Serializable {
         this.endereco = endereco;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public int getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(int telefone) {
-        this.telefone = telefone;
-    }
-
-    public int getIdade() {
-        return idade;
     }
 
     public String getNome() {
@@ -51,6 +38,18 @@ public abstract class Pessoa implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public int getIdade() {
+        return idade;
     }
 
     public LocalDate getDataNascimento() {

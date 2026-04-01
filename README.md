@@ -2,6 +2,22 @@
 
 ## Histórico de Alterações
 
+### Dia 01/04/26
+- Implementação da Classe `Instrutor`
+- `Instrutor` agora é subclasse de `Funcionario`
+- Novas classes para testar as IOStreams:
+  - `AlunoStreamClient`;
+  - `FuncionarioStreamClient`;
+  - `InstrutorStreamClient`;
+  - `VisitanteStreamClient`;
+- O atributo **CPF** agora é do tipo **String**;
+- Implementação dos IOStreams:
+  - `InstrutorInputStream` e `InstrutorOutputStream`;
+  - `VisitanteInputStream` e `VisitanteOutputStream`;
+- Novos atributos para Visitante e Instrutor:
+  - Visitante: `nivelExperiencia`;
+  - Instrutor: `cref` e `alunos` (lista de alunos do instrutor).
+
 ### Dia 30/03/26
 - Classe **Pessoa** implementa `Serializable`;
 - Novo Enum: `Turno`;
@@ -14,7 +30,7 @@
 - Pacote **server** foi renomeado para **network**, a classe `GymServer` foi apagada e agora possui cliente e servidor
 juntos na pasta:
   - Foram adicionados: `AcademiaClient` e `AcademiaServer` (Implementados para testar `AlunoOutputStream` e `AlunoInputStream`);
-- Na classe `AcademiaClient` foram feitos os testes para os seguintes OutputStreams de destino:
+- Na classe `AcademiaClient` foram feitos os testes para os seguintes OutputStreams de out:
   - Saída padrão (`System.out`)
   - Um arquivo (`FileOutputStream`)
   - Servidor Remoto (**TCP**)

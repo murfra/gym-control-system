@@ -1,77 +1,83 @@
 package com.gym.system.io;
 
+import com.gym.system.model.Experiencia;
 import com.gym.system.model.Visitante;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class VisitanteInputStream extends InputStream {
-    private InputStream origem;
-    private int bytesPorAtributo;
+    private Visitante[] visitantes;
+    private InputStream in;
 
-    public VisitanteInputStream(InputStream origem, int bytesPorAtributo) {
-        this.origem = origem;
-        this.bytesPorAtributo = bytesPorAtributo;
+    public VisitanteInputStream(Visitante[] visitantes, InputStream in) {
+        this.in = in;
+        this.visitantes = visitantes;
     }
 
-    // Lê uma quantidade N de visitantes do stream
-    public List<Visitante> lerVisitantes(int quantidade) throws IOException {
-        List<Visitante> lista = new ArrayList<>();
-        for (int i = 0; i < quantidade; i++) {
-            // Ordem: CPF -> Nome -> Email -> Data de Visita
-            int cpf = lerIntComoBytes();
-            String nome = lerStringLimitada();
-            String email = lerStringLimitada();
-            String dataVisitaStr = lerStringLimitada();
-            
-            // Conversão de String para LocalDate
-            LocalDate dataVisita = null;
-            try {
-                dataVisita = LocalDate.parse(dataVisitaStr, DateTimeFormatter.ISO_LOCAL_DATE);
-            } catch (Exception e) {
-                dataVisita = LocalDate.now();
+    private void processStream() {
+        Scanner sc = new Scanner(this.in);
+
+        try {
+            // Primeira linha no Output: Quantidade de visitantes
+            int qnt = Integer.parseInt(sc.nextLine().split(":")[1].trim());
+            this.visitantes = new Visitante[qnt];
+
+            for (int i = 0; i < qnt; i++) {
+                String cpf = sc.nextLine().split(":")[1].trim();
+                String nome = sc.nextLine().split(":")[1].trim();
+                String email = sc.nextLine().split(":")[1].trim();
+                LocalDateTime dataVisita = LocalDateTime.parse(sc.nextLine().split(":")[1].trim());
+                Experiencia nivelExperiencia = Experiencia.valueOf(sc.nextLine().split(":")[1].trim());
+
+                this.visitantes[i] = new Visitante(cpf, nome, null, null, email,
+                        null, dataVisita, nivelExperiencia);
             }
-
-            // Criando um objeto Visitante com os dados recebidos
-            Visitante v = new Visitante(cpf, 0, nome, null, email, null);
-            
-            lista.add(v);
+        } catch (Exception e) {
+            System.err.println("Erro ao processar os dados: " + e.getMessage());
         }
-        return lista;
     }
 
-    private String lerStringLimitada() throws IOException {
-        byte[] buffer = new byte[bytesPorAtributo];
-        int lidos = origem.read(buffer);
-        if (lidos == -1) throw new IOException("Fim do stream inesperado");
+    public Visitante[] readSystem() {
+        Scanner sc = new Scanner(in);
+        System.out.println("Informe a quantidade de Visitantees a ser lido:");
+        int qnt = Integer.parseInt(sc.nextLine());
 
-        // Converte para String e remove os bytes zero (padding) do final
-        return new String(buffer, StandardCharsets.UTF_8).trim();
+        this.visitantes = new Visitante[qnt];
+
+        for (int i = 0; i < qnt; i++) {
+            System.out.println("Informe o CPF do Visitante:");
+            String cpf = sc.nextLine();
+            System.out.println("Informe o Nome do Visitante:");
+            String nome = sc.nextLine();
+            System.out.println("Informe o E-mail do Visitante:");
+            String email = sc.nextLine();
+            System.out.println("Informe a data de visita do Visitante:");
+            LocalDateTime dataVisita = LocalDateTime.parse(sc.nextLine());
+            System.out.println("Informe o nível de experiência do Visitante:");
+            Experiencia nivelExperiencia = Experiencia.valueOf(sc.nextLine());
+
+            this.visitantes[i] = new Visitante(cpf, nome, null, null, email,
+                    null, dataVisita, nivelExperiencia);
+        }
+
+        return this.visitantes;
     }
 
-    private int lerIntComoBytes() throws IOException {
-        int resultado = 0;
-        // Lê os 4 bytes do int (ou a quantidade definida em bytesPorAtributo)
-        for (int i = 0; i < 4; i++) {
-            int b = origem.read();
-            if (b == -1) throw new IOException("Erro ao ler int");
-            resultado = (resultado << 8) | (b & 0xFF);
-        }
+    public Visitante[] readFile() {
+        processStream();
+        return this.visitantes;
+    }
 
-        // Se bytesPorAtributo for > 4, "pula" os bytes de preenchimento restantes
-        for (int i = 4; i < bytesPorAtributo; i++) {
-            origem.read();
-        }
-        return resultado;
+    public Visitante[] readTCP() {
+        processStream();
+        return this.visitantes;
     }
 
     @Override
     public int read() throws IOException {
-        return origem.read();
+        return (this.in != null) ? this.in.read() : -1;
     }
 }

@@ -1,6 +1,5 @@
 package com.gym.system.network;
 
-import com.gym.system.io.VisitanteInputStream;
 import com.gym.system.io.VisitanteOutputStream;
 import com.gym.system.io.InstrutorInputStream;
 import com.gym.system.io.InstrutorOutputStream;
@@ -78,7 +77,7 @@ public class TestadorSerializacao {
         System.out.println("Escrevendo " + instrutores.length + " instrutores em: " + arquivo);
         FileOutputStream fos = new FileOutputStream(arquivo);
         InstrutorOutputStream ios = new InstrutorOutputStream(instrutores, instrutores.length, BYTES_POR_ATRIBUTO, fos);
-        ios.enviarDados();
+        ios.writeSystem();
         fos.close();
 
         File f = new File(arquivo);

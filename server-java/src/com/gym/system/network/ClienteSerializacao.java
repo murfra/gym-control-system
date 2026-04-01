@@ -1,12 +1,10 @@
 package com.gym.system.network;
 
-import com.gym.system.io.VisitanteInputStream;
 import com.gym.system.io.VisitanteOutputStream;
 import com.gym.system.io.InstrutorInputStream;
 import com.gym.system.io.InstrutorOutputStream;
 import com.gym.system.model.Visitante;
 import com.gym.system.model.Instrutor;
-import com.gym.system.model.Endereco;
 
 import java.io.*;
 import java.net.Socket;
@@ -61,7 +59,7 @@ public class ClienteSerializacao {
         String caminhoArquivo = "instrutores_dados.bin";
         FileOutputStream fos = new FileOutputStream(caminhoArquivo);
         InstrutorOutputStream ios = new InstrutorOutputStream(instrutores, 3, BYTES_POR_ATRIBUTO, fos);
-        ios.enviarDados();
+        ios.writeSystem();
         fos.close();
         
         System.out.println("✓ Instrutores salvos em: " + caminhoArquivo);

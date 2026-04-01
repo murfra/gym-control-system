@@ -7,12 +7,12 @@ public class Funcionario extends Pessoa {
     private float salario;
     private Turno turno;
 
-    public Funcionario(int cpf, int telefone, String nome, LocalDate dataNascimento,
+    public Funcionario(String cpf, String nome, LocalDate dataNascimento, String telefone,
                        String email, Endereco endereco, String senha, float salario, Turno turno) {
+        super(cpf, nome, dataNascimento, telefone, email, endereco);
         this.senha = senha;
         this.salario = salario;
         this.turno = turno;
-        super(cpf, telefone, nome, dataNascimento, email, endereco);
     }
 
     public String getSenha() {

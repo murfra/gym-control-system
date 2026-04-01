@@ -1,67 +1,87 @@
 package com.gym.system.io;
 
+import com.gym.system.model.Aluno;
 import com.gym.system.model.Instrutor;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class InstrutorInputStream extends InputStream {
-    private InputStream origem;
-    private int bytesPorAtributo;
+    private Instrutor[] instrutores;
+    private InputStream in;
 
-    public InstrutorInputStream(InputStream origem, int bytesPorAtributo) {
-        this.origem = origem;
-        this.bytesPorAtributo = bytesPorAtributo;
+    public InstrutorInputStream(Instrutor[] instrutores, InputStream in) {
+        this.instrutores = instrutores;
+        this.in = in;
     }
 
-    // Lê uma quantidade N de instrutores do stream
-    public List<Instrutor> lerInstrutores(int quantidade) throws IOException {
-        List<Instrutor> lista = new ArrayList<>();
-        for (int i = 0; i < quantidade; i++) {
-            // Ordem: CPF -> Nome -> Email -> Telefone
-            int cpf = lerIntComoBytes();
-            String nome = lerStringLimitada();
-            String email = lerStringLimitada();
-            int telefone = lerIntComoBytes();
+    private void processStream() {
+        Scanner sc = new Scanner(this.in);
 
-            // Criando um objeto Instrutor com os dados recebidos
-            Instrutor inst = new Instrutor(cpf, telefone, nome, null, email, null);
+        try {
+            // Primeira linha no Output: Quantidade de instrutores
+            int qnt = Integer.parseInt(sc.nextLine().split(":")[1].trim());
+            this.instrutores = new Instrutor[qnt];
 
-            lista.add(inst);
+            for (int i = 0; i < qnt; i++) {
+                String cpf = sc.nextLine().split(":")[1].trim();
+                String cref = sc.nextLine().split(":")[1].trim();
+                String nome = sc.nextLine().split(":")[1].trim();
+                List<Aluno> alunos = new ArrayList<>();
+                String telefone = sc.nextLine().split(":")[1].trim();
+                String email = sc.nextLine().split(":")[1].trim();
+
+                this.instrutores[i] = new Instrutor(cpf, cref, nome, null, telefone, email,
+                             null, null, 0, null);
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao processar os dados: " + e.getMessage());
         }
-        return lista;
     }
 
-    private String lerStringLimitada() throws IOException {
-        byte[] buffer = new byte[bytesPorAtributo];
-        int lidos = origem.read(buffer);
-        if (lidos == -1) throw new IOException("Fim do stream inesperado");
+    public Instrutor[] readSystem() {
+        Scanner sc = new Scanner(in);
+        System.out.println("Informe a quantidade de Instrutores a ser lido:");
+        int qnt = Integer.parseInt(sc.nextLine());
 
-        // Converte para String e remove os bytes zero (padding) do final
-        return new String(buffer, StandardCharsets.UTF_8).trim();
+        this.instrutores = new Instrutor[qnt];
+
+        for (int i = 0; i < qnt; i++) {
+            System.out.println("Informe o CPF do Instrutor:");
+            String cpf = sc.nextLine();
+            System.out.println("Informe o CREF do Instrutor:");
+            String cref = sc.nextLine();
+            System.out.println("Informe o Nome do Instrutor:");
+            String nome = sc.nextLine();
+            System.out.println("Informe os Alunos do Instrutor: (Vazio, por enquanto)");
+            List<Aluno> alunos = new ArrayList<>();
+            System.out.println("Informe o Telefone do Instrutor:");
+            String telefone = sc.nextLine();
+            System.out.println("Informe o E-mail do Instrutor:");
+            String email = sc.nextLine();
+
+            instrutores[i] = new Instrutor(cpf, cref, nome, null, telefone, email,
+                    null, null, 0, null);
+        }
+
+        return this.instrutores;
     }
 
-    private int lerIntComoBytes() throws IOException {
-        int resultado = 0;
-        // Lê os 4 bytes do int (ou a quantidade definida em bytesPorAtributo)
-        for (int i = 0; i < 4; i++) {
-            int b = origem.read();
-            if (b == -1) throw new IOException("Erro ao ler int");
-            resultado = (resultado << 8) | (b & 0xFF);
-        }
+    public Instrutor[] readFile() {
+        processStream();
+        return this.instrutores;
+    }
 
-        // Se bytesPorAtributo for > 4, "pula" os bytes de preenchimento restantes
-        for (int i = 4; i < bytesPorAtributo; i++) {
-            origem.read();
-        }
-        return resultado;
+    public Instrutor[] readTCP() {
+        processStream();
+        return this.instrutores;
     }
 
     @Override
     public int read() throws IOException {
-        return origem.read();
+        return (this.in != null) ? this.in.read() : -1;
     }
 }

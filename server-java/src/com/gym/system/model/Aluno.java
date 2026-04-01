@@ -17,15 +17,16 @@ public class Aluno extends Pessoa {
     // O Map garante que cada dia tenha apenas um treino
     private Map<DayOfWeek, TreinoDiario> cronograma = new HashMap<>();
 
-    public Aluno(int cpf, int telefone, String nome, LocalDate dataNascimento, String email, Endereco endereco) {
+    public Aluno(String cpf, String nome, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
+        super(cpf, nome, dataNascimento, telefone, email, endereco);
         this.numeroMatricula = contadorMatricula.getAndIncrement();
         this.dataMatricula = LocalDate.now();
         this.nivelExperiencia = Experiencia.INICIANTE;
-        super(cpf, telefone, nome, dataNascimento, email, endereco);
     }
 
-    public Aluno(int cpf, int telefone, String nome, LocalDate dataNascimento, String email, Endereco endereco, Experiencia nivelExperiencia) {
-        this(cpf, telefone, nome, dataNascimento, email, endereco);
+    public Aluno(String cpf, String nome, LocalDate dataNascimento, String telefone, String email, Endereco endereco,
+                 Experiencia nivelExperiencia) {
+        this(cpf, nome, dataNascimento, telefone, email, endereco);
         this.nivelExperiencia = nivelExperiencia;
     }
 
