@@ -2,7 +2,7 @@ package com.gym.system.network;
 
 import com.gym.system.io.AlunoOutputStream;
 import com.gym.system.model.Aluno;
-import com.gym.system.model.Experiencia;
+import com.gym.system.model.enums.Experiencia;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

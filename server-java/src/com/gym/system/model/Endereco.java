@@ -1,6 +1,8 @@
 package com.gym.system.model;
 
-public class Endereco {
+import java.io.Serializable;
+
+public class Endereco implements Serializable {
     private int numero;
     private String rua;
     private String bairro;

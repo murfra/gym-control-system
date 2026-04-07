@@ -1,5 +1,7 @@
 package com.gym.system.model;
 
+import com.gym.system.model.enums.Turno;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

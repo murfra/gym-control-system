@@ -1,10 +1,14 @@
 package com.gym.system.io;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gym.system.model.Aluno;
 import com.gym.system.model.Instrutor;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,33 +17,13 @@ public class InstrutorInputStream extends InputStream {
     private Instrutor[] instrutores;
     private InputStream in;
 
+    private static final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
     public InstrutorInputStream(Instrutor[] instrutores, InputStream in) {
         this.instrutores = instrutores;
         this.in = in;
-    }
-
-    private void processStream() {
-        Scanner sc = new Scanner(this.in);
-
-        try {
-            // Primeira linha no Output: Quantidade de instrutores
-            int qnt = Integer.parseInt(sc.nextLine().split(":")[1].trim());
-            this.instrutores = new Instrutor[qnt];
-
-            for (int i = 0; i < qnt; i++) {
-                String cpf = sc.nextLine().split(":")[1].trim();
-                String cref = sc.nextLine().split(":")[1].trim();
-                String nome = sc.nextLine().split(":")[1].trim();
-                List<Aluno> alunos = new ArrayList<>();
-                String telefone = sc.nextLine().split(":")[1].trim();
-                String email = sc.nextLine().split(":")[1].trim();
-
-                this.instrutores[i] = new Instrutor(cpf, cref, nome, null, telefone, email,
-                             null, null, 0, null);
-            }
-        } catch (Exception e) {
-            System.err.println("Erro ao processar os dados: " + e.getMessage());
-        }
     }
 
     public Instrutor[] readSystem() {
@@ -70,14 +54,17 @@ public class InstrutorInputStream extends InputStream {
         return this.instrutores;
     }
 
-    public Instrutor[] readFile() {
-        processStream();
-        return this.instrutores;
+    private Instrutor[] readJSON(InputStream source) throws IOException {
+        String json = new String(source.readAllBytes(), StandardCharsets.UTF_8);
+        return mapper.readValue(json, Instrutor[].class);
     }
 
-    public Instrutor[] readTCP() {
-        processStream();
-        return this.instrutores;
+    public Instrutor[] readFile() throws IOException {
+        return readJSON(in);
+    }
+
+    public Instrutor[] readTCP() throws IOException {
+        return readJSON(in);
     }
 
     @Override

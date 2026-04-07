@@ -1,10 +1,14 @@
 package com.gym.system.io;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gym.system.model.Instrutor;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class InstrutorOutputStream extends OutputStream {
@@ -12,6 +16,11 @@ public class InstrutorOutputStream extends OutputStream {
     private int quantidade;
     private int bytesPorAtributo;
     private OutputStream out;
+
+    // ObjectMapper thread-safe e configurado para datas ISO-8601
+    private static final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     public InstrutorOutputStream(Instrutor[] instrutores, int quantidade, int bytesPorAtributo, OutputStream out) {
         this.instrutores = instrutores;
@@ -27,36 +36,50 @@ public class InstrutorOutputStream extends OutputStream {
         opLocal.println("Quantidade de Instrutores: " + qtdInstrutores);
 
         for (Instrutor instrutor : instrutores) {
-            if (instrutor != null) {
-                String cpf = instrutor.getCpf();
-                String cref = instrutor.getCref();
-                String nome = instrutor.getNome();
-                String alunos = instrutor.getAlunos().toString();
-                String telefone = instrutor.getTelefone();
-                String email = instrutor.getEmail();
+            if (instrutor == null) continue;
 
-                opLocal.println("CPF: " + cpf +
-                                "\nCREF: " + cref +
-                                "\nNome: " + nome +
-                                "\nAlunos: " + alunos +
-                                "\nTelefone: " + telefone +
-                                "\nE-mail: " + email);
-            }
+            opLocal.println("CPF: " + instrutor.getCpf() +
+                            "\nCREF: " + instrutor.getCref() +
+                            "\nNome: " + instrutor.getNome() +
+                            "\nAlunos: " + instrutor.getAlunos().toString() +
+                            "\nTelefone: " + instrutor.getTelefone() +
+                            "\nEmail: " + instrutor.getEmail() +
+                            "\n---FIM_INSTRUTOR---");
         }
     }
 
-    public void writeFile() throws IOException {
-        writeSystem();
+    private void writeJSON() throws IOException {
+        int limite = Math.min(quantidade, instrutores.length);
+        Instrutor[] subArray = new Instrutor[limite];
+        System.arraycopy(instrutores, 0, subArray, 0, limite);
+
+        // Serializa array para JSON e grava como bytes UTF-8
+        byte[] jsonBytes = mapper.writeValueAsString(subArray).getBytes(StandardCharsets.UTF_8);
+        out.write(jsonBytes);
+        out.flush();
     }
 
+    // Serializa como JSON (UTF-8 bytes)
+    public void writeFile() throws IOException {
+        writeJSON();
+    }
+
+    // Serializa como JSON (UTF-8 bytes)
     public void writeTCP() throws IOException {
-        writeSystem();
+        writeJSON();
     }
 
     @Override
     public void write(int b) throws IOException {
         if (this.out != null) {
             this.out.write(b);
+        }
+    }
+
+    @Override
+    public void close() throws IOException {
+        if (this.out != null) {
+            this.out.close();
         }
     }
 

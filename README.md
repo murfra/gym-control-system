@@ -2,6 +2,17 @@
 
 ## Histórico de Alterações
 
+### Dia 07/04/26
+- Enums movidos para `model/enums/`;
+- Classe de agregação movida para `core/`;
+- Novo pacote `multicast` (onde será utilizado UDP para avisos);
+- Alterações nos IOStream:
+  - OutputStream: `writeFile` e `writeTCP` enviam no formato JSON;
+  - InputStream: `readFile` e `readTCP` recebem no formato JSON;
+  - _Nota_: `writeSystem` e `readSystem` ainda imprimem e recebem do terminal, respectivamente;
+- Classe Pessoa alterada:
+  - Idade não é mais um atributo é calculado por um método;
+
 ### Dia 01/04/26
 - Implementação da Classe `Instrutor`
 - `Instrutor` agora é subclasse de `Funcionario`

@@ -2,11 +2,12 @@ package com.gym.system.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 
 public abstract class Pessoa implements Serializable {
-    private LocalDate dataAtual = LocalDate.now(ZoneId.systemDefault());
-    private int idade;
+    private static final long serialVersionUID = 1L;
+
     private String cpf;
     private String telefone;
     private String nome;
@@ -17,7 +18,6 @@ public abstract class Pessoa implements Serializable {
     public Pessoa(String cpf, String nome, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
         this.cpf = cpf;
         this.telefone = telefone;
-        //this.idade = Period.between(dataNascimento, dataAtual).getYears();
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.email = email;
@@ -49,7 +49,10 @@ public abstract class Pessoa implements Serializable {
     }
 
     public int getIdade() {
-        return idade;
+        if (dataNascimento != null) {
+            return Period.between(dataNascimento, LocalDate.now()).getYears();
+        }
+        return 0;
     }
 
     public LocalDate getDataNascimento() {
@@ -79,10 +82,9 @@ public abstract class Pessoa implements Serializable {
     @Override
     public String toString() {
         return "Pessoa {" +
-                "dataAtual=" + dataAtual +
                 ", cpf=" + cpf +
                 ", telefone=" + telefone +
-                ", idade=" + idade +
+                ", idade=" + getIdade() +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", endereco=" + endereco +

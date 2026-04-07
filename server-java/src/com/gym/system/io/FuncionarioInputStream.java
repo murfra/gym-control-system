@@ -1,7 +1,7 @@
 package com.gym.system.io;
 
 import com.gym.system.model.Funcionario;
-import com.gym.system.model.Turno;
+import com.gym.system.model.enums.Turno;
 
 import java.io.IOException;
 import java.io.InputStream;

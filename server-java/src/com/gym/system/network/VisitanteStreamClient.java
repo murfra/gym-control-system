@@ -1,7 +1,7 @@
 package com.gym.system.network;
 
 import com.gym.system.io.VisitanteOutputStream;
-import com.gym.system.model.Experiencia;
+import com.gym.system.model.enums.Experiencia;
 import com.gym.system.model.Visitante;
 
 import java.io.FileOutputStream;
@@ -31,7 +31,7 @@ public class VisitanteStreamClient {
 
         // TESTE 2: Arquivo (FileOutputStream)
         try {
-            FileOutputStream fos = new FileOutputStream("visitantes.out");
+            FileOutputStream fos = new FileOutputStream("visitantes.json");
             VisitanteOutputStream vosFile = new VisitanteOutputStream(visitantes, qtd, bytesPorAtributo, fos);
             vosFile.writeFile();
             System.out.println("\n[OK] Arquivo gerado com sucesso!");

@@ -2,11 +2,10 @@ package com.gym.system.network;
 
 import com.gym.system.io.AlunoOutputStream;
 import com.gym.system.model.Aluno;
-import com.gym.system.model.Experiencia;
+import com.gym.system.model.enums.Experiencia;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class OutputStreamClient {
     public static void main(String[] args) {

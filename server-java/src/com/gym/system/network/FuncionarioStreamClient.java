@@ -2,7 +2,7 @@ package com.gym.system.network;
 
 import com.gym.system.io.FuncionarioOutputStream;
 import com.gym.system.model.Funcionario;
-import com.gym.system.model.Turno;
+import com.gym.system.model.enums.Turno;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

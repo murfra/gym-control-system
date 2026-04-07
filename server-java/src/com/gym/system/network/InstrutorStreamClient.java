@@ -2,7 +2,7 @@ package com.gym.system.network;
 
 import com.gym.system.io.InstrutorOutputStream;
 import com.gym.system.model.Aluno;
-import com.gym.system.model.Experiencia;
+import com.gym.system.model.enums.Experiencia;
 import com.gym.system.model.Instrutor;
 
 import java.io.FileOutputStream;
@@ -41,7 +41,7 @@ public class InstrutorStreamClient {
 
         // TESTE 2: Arquivo (FileOutputStream)
         try {
-            FileOutputStream fos = new FileOutputStream("instrutores.out");
+            FileOutputStream fos = new FileOutputStream("instrutores.json");
             InstrutorOutputStream iosFile = new InstrutorOutputStream(instrutores, qtd, bytesPorAtributo, fos);
             iosFile.writeFile();
             System.out.println("\n[OK] Arquivo gerado com sucesso!");

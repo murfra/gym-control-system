@@ -1,5 +1,7 @@
 package com.gym.system.model;
 
+import com.gym.system.model.enums.Turno;
+
 import java.time.LocalDate;
 
 public class Funcionario extends Pessoa {

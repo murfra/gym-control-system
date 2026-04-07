@@ -1,5 +1,7 @@
 package com.gym.system.model;
 
+import com.gym.system.model.enums.Experiencia;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;

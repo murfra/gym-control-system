@@ -1,7 +1,7 @@
 package com.gym.system.io;
 
 import com.gym.system.model.Aluno;
-import com.gym.system.model.Experiencia;
+import com.gym.system.model.enums.Experiencia;
 
 import java.io.IOException;
 import java.io.InputStream;

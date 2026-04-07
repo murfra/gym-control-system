@@ -1,4 +1,9 @@
-package com.gym.system.model;
+package com.gym.system.core;
+
+import com.gym.system.model.Aluno;
+import com.gym.system.model.Funcionario;
+import com.gym.system.model.Instrutor;
+import com.gym.system.model.Visitante;
 
 import java.util.ArrayList;
 import java.util.List;
