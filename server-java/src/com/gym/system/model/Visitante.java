@@ -1,5 +1,6 @@
 package com.gym.system.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gym.system.model.enums.Experiencia;
 
 import java.time.LocalDate;
@@ -23,8 +24,14 @@ public class Visitante extends Pessoa {
         this.nivelExperiencia = nivelExperiencia;
     }
 
-    public Visitante(String cpf, String nome, LocalDate dataNascimento, String telefone, String email,
-                     Endereco endereco, LocalDateTime dataVisita, Experiencia nivelExperiencia) {
+    public Visitante(@JsonProperty("cpf") String cpf,
+                     @JsonProperty("nome") String nome,
+                     @JsonProperty("dataNascimento") LocalDate dataNascimento,
+                     @JsonProperty("telefone") String telefone,
+                     @JsonProperty("email") String email,
+                     @JsonProperty("endereco") Endereco endereco,
+                     @JsonProperty("dataVisita") LocalDateTime dataVisita,
+                     @JsonProperty("nivelExperiencia") Experiencia nivelExperiencia) {
         super(cpf, nome, dataNascimento, telefone, email, endereco);
         this.dataVisita = dataVisita;
         this.nivelExperiencia = nivelExperiencia;

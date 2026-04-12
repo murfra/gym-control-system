@@ -77,13 +77,6 @@ public class VisitanteOutputStream extends OutputStream {
     }
 
     @Override
-    public void close() throws IOException {
-        if (this.out != null) {
-            this.out.close();
-        }
-    }
-
-    @Override
     public String toString() {
         return "VisitanteOutputStream{" +
                 "visitantes=" + Arrays.toString(visitantes) +

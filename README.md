@@ -2,6 +2,14 @@
 
 ## Histórico de Alterações
 
+### Dia 12/04/26
+- Novos pacotes: **client**, **protocol**, **server** e **test**;
+- Os pacotes **client**, **server** e **protocol** foram utilizados para resolver a questão 4 da lista;
+- No pacote **test**, foi implementado as classes responsáveis pelos testes necessários para as questões 2 e 3 (sobre IOStreams)
+  - _Nota: cada classe implementa em si mesma o servidor e o cliente para o teste de envio por TCP_;
+- Novos métodos foram adicionados à classe de agregação **Academia**:
+  - Adicionar/get visitantes/instrutores;
+
 ### Dia 07/04/26
 - Enums movidos para `model/enums/`;
 - Classe de agregação movida para `core/`;

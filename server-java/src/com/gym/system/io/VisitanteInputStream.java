@@ -1,5 +1,7 @@
 package com.gym.system.io;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -18,11 +20,12 @@ public class VisitanteInputStream extends InputStream {
 
     private static final ObjectMapper mapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
-            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
 
-    public VisitanteInputStream(Visitante[] visitantes, InputStream in) {
+    public VisitanteInputStream(InputStream in) {
         this.in = in;
-        this.visitantes = visitantes;
     }
 
     // Leitura interativa do terminal
@@ -42,8 +45,8 @@ public class VisitanteInputStream extends InputStream {
             String email = sc.nextLine();
             System.out.println("Informe a data de visita do Visitante:");
             LocalDateTime dataVisita = LocalDateTime.parse(sc.nextLine());
-            System.out.println("Informe o nível de experiência do Visitante:");
-            Experiencia nivelExperiencia = Experiencia.valueOf(sc.nextLine());
+            System.out.println("Informe o nível de experiência do Visitante (iniciante, intermediario ou avancado):");
+            Experiencia nivelExperiencia = Experiencia.valueOf(sc.nextLine().toUpperCase());
 
             this.visitantes[i] = new Visitante(cpf, nome, null, null, email,
                     null, dataVisita, nivelExperiencia);

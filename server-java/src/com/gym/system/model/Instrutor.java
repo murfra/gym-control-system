@@ -1,5 +1,6 @@
 package com.gym.system.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gym.system.model.enums.Turno;
 
 import java.time.LocalDate;
@@ -16,8 +17,16 @@ public class Instrutor extends Funcionario {
         this.alunos = new ArrayList<>();
     }
 
-    public Instrutor(String cpf, String cref, String nome, LocalDate dataNascimento, String telefone,
-                     String email, Endereco endereco, String senha, float salario, Turno turno) {
+    public Instrutor(@JsonProperty("cpf") String cpf,
+                     @JsonProperty("cref") String cref,
+                     @JsonProperty("nome") String nome,
+                     @JsonProperty("dataNascimento") LocalDate dataNascimento,
+                     @JsonProperty("telefone") String telefone,
+                     @JsonProperty("email") String email,
+                     @JsonProperty("endereco") Endereco endereco,
+                     @JsonProperty("senha") String senha,
+                     @JsonProperty("salario") float salario,
+                     @JsonProperty("turno") Turno turno) {
         super(cpf, nome, dataNascimento, telefone, email, endereco, senha, salario, turno);
         this.cref = cref;
         this.alunos = new ArrayList<>();

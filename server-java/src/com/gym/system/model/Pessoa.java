@@ -1,5 +1,7 @@
 package com.gym.system.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
@@ -71,6 +73,7 @@ public abstract class Pessoa implements Serializable {
         this.email = email;
     }
 
+    @JsonIgnore //Ignorar endereço na serialização
     public Endereco getEndereco() {
         return endereco;
     }

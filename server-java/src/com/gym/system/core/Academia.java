@@ -28,4 +28,20 @@ public class Academia {
     public List<Aluno> getAlunosMatriculados() {
         return alunosMatriculados;
     }
+
+    public void adicionarVisitante(Visitante v) {
+        visitantes.add(v);
+    }
+
+    public List<Visitante> getVisitantes() {
+        return visitantes;
+    }
+
+    public void adicionarInstrutor(Instrutor i) {
+        instrutores.add(i);
+    }
+
+    public List<Instrutor> getInstrutores() {
+        return instrutores;
+    }
 }

@@ -77,13 +77,6 @@ public class InstrutorOutputStream extends OutputStream {
     }
 
     @Override
-    public void close() throws IOException {
-        if (this.out != null) {
-            this.out.close();
-        }
-    }
-
-    @Override
     public String toString() {
         return "InstrutorOutputStream{" +
                 "instrutores=" + Arrays.toString(instrutores) +

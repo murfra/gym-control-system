@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+.idea/
 
 ### Eclipse ###
 .apt_generated
@@ -38,5 +39,4 @@ DIAGRAMA.md
 ENTREGA.md
 INDICE.md
 *.bin
-instrutores_dados.bin
-teste_instrutores.bin
+*.class
