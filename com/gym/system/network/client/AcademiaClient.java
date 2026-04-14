@@ -27,12 +27,12 @@ public class AcademiaClient {
         socket = new Socket(host, port);
         dis = new DataInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
-        System.out.println("✅ Conectado ao servidor em " + host + ":" + port);
+        System.out.println("Conectado ao servidor em " + host + ":" + port);
     }
 
     public void desconectar() throws IOException {
         if (socket != null && !socket.isClosed()) socket.close();
-        System.out.println("🔌 Desconectado.");
+        System.out.println("Desconectado.");
     }
 
     /** Método base de empacotamento/envio e desempacotamento/recebimento */

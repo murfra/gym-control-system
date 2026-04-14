@@ -19,13 +19,13 @@ public class TesteStreamsInstrutor {
         System.out.println("        VALIDAÇÃO : Instrutor");
         System.out.println("══════════════════════════════════════\n");
 
-        System.out.println("📌 System.in");
+        System.out.println("System.in");
         testarSystem(dadosOriginais);
 
-        System.out.println("\n📌 writeFile / readFile");
+        System.out.println("\nwriteFile / readFile");
         testarArquivo(dadosOriginais);
 
-        System.out.println("\n📌 writeTCP / readTCP");
+        System.out.println("\nwriteTCP / readTCP");
         testarTCP(dadosOriginais);
     }
 
@@ -33,7 +33,7 @@ public class TesteStreamsInstrutor {
     // writeSystem() | readSystem()
     // ─────────────────────────────────────────────────────
     private static void testarSystem(Instrutor[] dados) throws Exception {
-        System.out.println("📤 Enviando para System.out:");
+        System.out.println("Enviando para System.out:");
         try (var out = new InstrutorOutputStream(dados, dados.length, BYTES_POR_ATRIBUTO, System.out)) {
             out.writeSystem();
         }
@@ -56,7 +56,7 @@ public class TesteStreamsInstrutor {
              var vos = new InstrutorOutputStream(dados, dados.length, BYTES_POR_ATRIBUTO, fos)) {
             vos.writeFile();
         }
-        System.out.println("✅ Arquivo gravado: " + caminho + " (" + new File(caminho).length() + " bytes)");
+        System.out.println("Arquivo gravado: " + caminho + " (" + new File(caminho).length() + " bytes)");
 
         // Leitura
         try (var fis = new FileInputStream(caminho);
@@ -64,7 +64,7 @@ public class TesteStreamsInstrutor {
 
             Instrutor[] lidos = vis.readFile();
 
-            System.out.println("📥 Instrutores lidos do arquivo:");
+            System.out.println("Instrutores lidos do arquivo:");
             for (Instrutor v : lidos) {
                 if (v != null) System.out.println("   • " + v.getNome() + " | " + v.getEmail());
             }
@@ -84,14 +84,14 @@ public class TesteStreamsInstrutor {
                  Socket cliente = ss.accept();
                  var vis = new InstrutorInputStream(cliente.getInputStream())) {
 
-                System.out.println("🟢 Servidor TCP aguardando na porta " + porta + "...");
+                System.out.println("Servidor TCP aguardando na porta " + porta + "...");
                 Instrutor[] recebidos = vis.readTCP();
-                System.out.println("📦 Servidor recebeu " + recebidos.length + " instrutor(es):");
+                System.out.println("Servidor recebeu " + recebidos.length + " instrutor(es):");
                 for (Instrutor v : recebidos) {
                     if (v != null) System.out.println("   • " + v.getNome() + " | " + v.getCref());
                 }
             } catch (IOException e) {
-                System.err.println("❌ Erro servidor TCP: " + e.getMessage());
+                System.err.println("Erro servidor TCP: " + e.getMessage());
             }
         });
         servidor.start();
@@ -100,7 +100,7 @@ public class TesteStreamsInstrutor {
         // Thread Cliente (writeTCP)
         try (Socket s = new Socket("localhost", porta);
              var vos = new InstrutorOutputStream(dados, dados.length, BYTES_POR_ATRIBUTO, s.getOutputStream())) {
-            System.out.println("🔵 Cliente TCP enviando...");
+            System.out.println("Cliente TCP enviando...");
             vos.writeTCP();
         }
         servidor.join(2000);

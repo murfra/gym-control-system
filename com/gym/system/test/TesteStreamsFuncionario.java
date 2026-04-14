@@ -18,18 +18,18 @@ public class TesteStreamsFuncionario {
         System.out.println("       VALIDAÇÃO : Funcionario");
         System.out.println("══════════════════════════════════════\n");
 
-        System.out.println("📌 System.in");
+        System.out.println("System.in");
         testarSystem(dadosOriginais);
 
-        System.out.println("\n📌 writeFile / readFile");
+        System.out.println("\nwriteFile / readFile");
         testarArquivo(dadosOriginais);
 
-        System.out.println("\n📌 writeTCP / readTCP");
+        System.out.println("\nwriteTCP / readTCP");
         testarTCP(dadosOriginais);
     }
 
     private static void testarSystem(Funcionario[] dados) throws Exception {
-        System.out.println("📤 Enviando para System.out:");
+        System.out.println("Enviando para System.out:");
         try (var out = new FuncionarioOutputStream(dados, dados.length, BYTES_POR_ATRIBUTO, System.out)) {
             out.writeSystem();
         }
@@ -48,14 +48,14 @@ public class TesteStreamsFuncionario {
              var fos2 = new FuncionarioOutputStream(dados, dados.length, BYTES_POR_ATRIBUTO, fos)) {
             fos2.writeFile();
         }
-        System.out.println("✅ Arquivo gravado: " + caminho + " (" + new File(caminho).length() + " bytes)");
+        System.out.println("Arquivo gravado: " + caminho + " (" + new File(caminho).length() + " bytes)");
 
         try (var fis = new FileInputStream(caminho);
              var fis2 = new FuncionarioInputStream(fis)) {
 
             Funcionario[] lidos = fis2.readFile();
 
-            System.out.println("📥 Funcionários lidos do arquivo:");
+            System.out.println("Funcionários lidos do arquivo:");
             for (Funcionario f : lidos) {
                 if (f != null) System.out.println("   • " + f.getNome() + " | " + f.getEmail());
             }
@@ -72,14 +72,14 @@ public class TesteStreamsFuncionario {
                  Socket cliente = ss.accept();
                  var fis = new FuncionarioInputStream(cliente.getInputStream())) {
 
-                System.out.println("🟢 Servidor TCP aguardando na porta " + porta + "...");
+                System.out.println("Servidor TCP aguardando na porta " + porta + "...");
                 Funcionario[] recebidos = fis.readTCP();
-                System.out.println("📦 Servidor recebeu " + recebidos.length + " funcionário(s):");
+                System.out.println("Servidor recebeu " + recebidos.length + " funcionário(s):");
                 for (Funcionario f : recebidos) {
                     if (f != null) System.out.println("   • " + f.getNome() + " | " + f.getTurno());
                 }
             } catch (IOException e) {
-                System.err.println("❌ Erro servidor TCP: " + e.getMessage());
+                System.err.println("Erro servidor TCP: " + e.getMessage());
             }
         });
         servidor.start();
@@ -87,7 +87,7 @@ public class TesteStreamsFuncionario {
 
         try (Socket s = new Socket("localhost", porta);
              var fos = new FuncionarioOutputStream(dados, dados.length, BYTES_POR_ATRIBUTO, s.getOutputStream())) {
-            System.out.println("🔵 Cliente TCP enviando...");
+            System.out.println("Cliente TCP enviando...");
             fos.writeTCP();
         }
 

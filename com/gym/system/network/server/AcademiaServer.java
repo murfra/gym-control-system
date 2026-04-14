@@ -23,16 +23,16 @@ public class AcademiaServer {
 
     public void iniciar() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("🏋️ Servidor Academia online na porta " + port);
+            System.out.println("Servidor Academia online na porta " + port);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("🔗 Cliente conectado: " + clientSocket.getInetAddress());
+                System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
 
                 new Thread(new ClienteHandler(clientSocket)).start();
             }
         } catch (IOException e) {
-            System.err.println("❌ Erro ao iniciar servidor: " + e.getMessage());
+            System.err.println("Erro ao iniciar servidor: " + e.getMessage());
         }
     }
 
@@ -57,18 +57,18 @@ public class AcademiaServer {
                     try {
                         request = lerMensagem(dis);
                     } catch (EOFException e) {
-                        System.out.println("🔌 Cliente desconectou: " + socket.getInetAddress());
+                        System.out.println("Cliente desconectou: " + socket.getInetAddress());
                         break;
                     }
 
-                    System.out.println("📥 Recebido: " + request.getTipo());
+                    System.out.println("Recebido: " + request.getTipo());
 
                     Mensagem response = processarRequest(request);
                     enviarMensagem(dos, response);
                 }
 
             } catch (IOException e) {
-                System.err.println("❌ Erro na conexão com " + socket.getInetAddress() + ": " + e.getMessage());
+                System.err.println("Erro na conexão com " + socket.getInetAddress() + ": " + e.getMessage());
             } finally {
                 try {
                     if (!socket.isClosed()) {
