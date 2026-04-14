@@ -2,8 +2,8 @@ package com.gym.system.test;
 
 import com.gym.system.io.VisitanteInputStream;
 import com.gym.system.io.VisitanteOutputStream;
-import com.gym.system.model.enums.Experiencia;
-import com.gym.system.model.Visitante;
+import com.gym.system.models.enums.Experiencia;
+import com.gym.system.models.Visitante;
 
 import java.io.*;
 import java.net.*;

@@ -1,7 +1,8 @@
-package com.gym.system.service;
+package com.gym.system.services;
 
-import com.gym.system.model.Pessoa;
-import com.gym.system.model.Visitante;
+import com.gym.system.interfaces.IGestaoAcesso;
+import com.gym.system.models.Pessoa;
+import com.gym.system.models.Visitante;
 
 public class GestaoAcessoImpl implements IGestaoAcesso {
 

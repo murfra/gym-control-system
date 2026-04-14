@@ -1,7 +1,7 @@
-package com.gym.system.model;
+package com.gym.system.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gym.system.model.enums.Turno;
+import com.gym.system.models.enums.Turno;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package com.gym.system.model.enums;
+package com.gym.system.models.enums;
 
 public enum Experiencia {
     INICIANTE, INTERMEDIARIO, AVANCADO;

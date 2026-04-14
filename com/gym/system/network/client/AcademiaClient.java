@@ -1,12 +1,12 @@
 package com.gym.system.network.client;
 
 import com.gym.system.io.*;
-import com.gym.system.model.Instrutor;
-import com.gym.system.model.Visitante;
+import com.gym.system.models.Instrutor;
+import com.gym.system.models.Visitante;
 import com.gym.system.network.protocol.Mensagem;
 
-import com.gym.system.model.Aluno;
-import com.gym.system.model.Funcionario;
+import com.gym.system.models.Aluno;
+import com.gym.system.models.Funcionario;
 
 import java.io.*;
 import java.net.*;

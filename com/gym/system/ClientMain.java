@@ -1,11 +1,11 @@
 package com.gym.system;
 
-import com.gym.system.model.Aluno;
-import com.gym.system.model.Funcionario;
-import com.gym.system.model.Instrutor;
-import com.gym.system.model.Visitante;
-import com.gym.system.model.enums.Experiencia;
-import com.gym.system.model.enums.Turno;
+import com.gym.system.models.Aluno;
+import com.gym.system.models.Funcionario;
+import com.gym.system.models.Instrutor;
+import com.gym.system.models.Visitante;
+import com.gym.system.models.enums.Experiencia;
+import com.gym.system.models.enums.Turno;
 import com.gym.system.network.client.AcademiaClient;
 
 import java.time.LocalDateTime;

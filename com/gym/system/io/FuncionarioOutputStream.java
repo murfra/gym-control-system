@@ -3,7 +3,7 @@ package com.gym.system.io;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.gym.system.model.Funcionario;
+import com.gym.system.models.Funcionario;
 
 import java.io.IOException;
 import java.io.OutputStream;

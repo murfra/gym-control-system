@@ -2,8 +2,8 @@ package com.gym.system.test;
 
 import com.gym.system.io.FuncionarioInputStream;
 import com.gym.system.io.FuncionarioOutputStream;
-import com.gym.system.model.Funcionario;
-import com.gym.system.model.enums.Turno;
+import com.gym.system.models.Funcionario;
+import com.gym.system.models.enums.Turno;
 
 import java.io.*;
 import java.net.*;

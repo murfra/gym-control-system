@@ -1,4 +1,4 @@
-package com.gym.system.model;
+package com.gym.system.models;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;

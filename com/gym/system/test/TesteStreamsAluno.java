@@ -2,8 +2,8 @@ package com.gym.system.test;
 
 import com.gym.system.io.AlunoInputStream;
 import com.gym.system.io.AlunoOutputStream;
-import com.gym.system.model.Aluno;
-import com.gym.system.model.enums.Experiencia;
+import com.gym.system.models.Aluno;
+import com.gym.system.models.enums.Experiencia;
 
 import java.io.*;
 import java.net.*;

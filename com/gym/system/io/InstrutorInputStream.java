@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.gym.system.model.Aluno;
-import com.gym.system.model.Instrutor;
+import com.gym.system.models.Aluno;
+import com.gym.system.models.Instrutor;
 
 import java.io.IOException;
 import java.io.InputStream;

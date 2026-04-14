@@ -1,7 +1,7 @@
-package com.gym.system.service;
+package com.gym.system.interfaces;
 
-import com.gym.system.model.Aluno;
-import com.gym.system.model.TreinoDiario;
+import com.gym.system.models.Aluno;
+import com.gym.system.models.TreinoDiario;
 
 import java.time.DayOfWeek;
 

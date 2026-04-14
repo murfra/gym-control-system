@@ -1,4 +1,4 @@
-package com.gym.system.model;
+package com.gym.system.models;
 
 public class Exercicio {
     private String nome;
