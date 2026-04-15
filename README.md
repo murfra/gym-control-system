@@ -126,7 +126,7 @@ O cliente executará automaticamente os testes CRUD, solicitará login para vota
 - **Disciplina:** Sistemas Distribuídos
 - **Instituição:** Universidade Federal do Ceará (UFC) – Campus de Quixadá
 - **Professor:** Rafael Braga
-- **Desenvolvido por:** Murilo Fragoso ([murfra](https://github.com/murfra)) e Pedro Erykles ([pedroErykles](https://github.com/murfra)).
+- **Desenvolvido por:** Murilo Fragoso ([murfra](https://github.com/murfra)) e Pedro Erykles ([pedroErykles](https://github.com/pedroErykles)).
 - **Semestre:** 2026.1
 
 ---
