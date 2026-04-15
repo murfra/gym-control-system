@@ -2,6 +2,8 @@
 
 Este projeto é desenvolvido para a disciplina de **Sistemas Distribuídos**. O objetivo é criar uma plataforma para a gestão de alunos, funcionários e rotinas de treino, utilizando uma arquitetura distribuída.
 
+**Autores**: Murilo Fragoso ([murfra](https://github.com/murfra)) e Pedro Erykles  ([pedroErykles](https://github.com/pedroErykles))
+
 ## 🚀 O Projeto
 
 O sistema gerencia o ecossistema de uma academia, permitindo o controle de acesso, gestão de pessoal e acompanhamento de evolução física através de interfaces específicas.
