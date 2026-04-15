@@ -28,7 +28,7 @@ public class ServidorMulticast {
             InetAddress grupo = InetAddress.getByName(GRUPO_MULTICAST);
             socket.setTimeToLive(TTL);
 
-            System.out.println("📡 Servidor Multicast de Avisos (JSON) iniciado.");
+            System.out.println("Servidor Multicast de Avisos (JSON) iniciado.");
             System.out.println("Tipos válidos: FECHAMENTO, PROMOCAO, MANUTENCAO, OUTRO\n");
 
             while (true) {
@@ -44,7 +44,7 @@ public class ServidorMulticast {
 
                 DatagramPacket pacote = new DatagramPacket(dados, dados.length, grupo, PORTA);
                 socket.send(pacote);
-                System.out.println("✅ Aviso enviado com sucesso!\n");
+                System.out.println("Aviso enviado com sucesso!\n");
             }
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("Erro no servidor: " + e.getMessage());

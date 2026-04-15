@@ -30,7 +30,7 @@ public class ClienteMulticast implements Runnable {
         try (MulticastSocket socket = new MulticastSocket(PORTA)) {
             InetAddress grupo = InetAddress.getByName(GRUPO_MULTICAST);
             socket.joinGroup(grupo);
-            System.out.println("👂 [" + nomeUsuario + "] Conectado ao canal de avisos...");
+            System.out.println("[" + nomeUsuario + "] Conectado ao canal de avisos...");
 
             byte[] buffer = new byte[2048];
             while (rodando) {
@@ -41,12 +41,12 @@ public class ClienteMulticast implements Runnable {
                 String jsonRecebido = new String(pacote.getData(), 0, pacote.getLength(), StandardCharsets.UTF_8);
                 Aviso aviso = mapper.readValue(jsonRecebido, Aviso.class);
 
-                System.out.println("\n📢 NOVO AVISO para " + nomeUsuario + ":");
+                System.out.println("\nNOVO AVISO para " + nomeUsuario + ":");
                 System.out.println("   " + aviso);
             }
         } catch (IOException e) {
             if (rodando) {
-                System.err.println("❌ Erro no cliente: " + e.getMessage());
+                System.err.println("Erro no cliente: " + e.getMessage());
                 e.printStackTrace();
             }
         }

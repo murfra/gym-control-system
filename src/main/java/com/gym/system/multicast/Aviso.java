@@ -7,11 +7,7 @@ public class Aviso implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public enum Tipo {
-        CADASTRAR_VISITANTE, LISTAR_VISITANTES,
-        CADASTRAR_INSTRUTOR, LISTAR_INSTRUTORES,
-        CADASTRAR_ALUNO, LISTAR_ALUNOS,
-        CADASTRAR_FUNCIONARIO, LISTAR_FUNCIONARIOS,
-        SUCESSO, ERRO
+        FECHAMENTO, PROMOCAO, MANUTENCAO, OUTRO
     }
 
     private Tipo tipo;
