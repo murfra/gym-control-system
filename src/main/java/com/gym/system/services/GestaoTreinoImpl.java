@@ -4,12 +4,18 @@ import com.gym.system.interfaces.IGestaoTreino;
 import com.gym.system.models.Aluno;
 import com.gym.system.models.TreinoDiario;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.time.DayOfWeek;
 
-public class GestaoTreinoImpl implements IGestaoTreino {
+public class GestaoTreinoImpl extends UnicastRemoteObject implements IGestaoTreino {
+
+    public GestaoTreinoImpl() throws RemoteException {
+        super();
+    }
 
     @Override
-    public TreinoDiario criarTreino(Aluno aluno, DayOfWeek dia, TreinoDiario treino) {
+    public TreinoDiario criarTreino(Aluno aluno, DayOfWeek dia, TreinoDiario treino) throws RemoteException {
         if (aluno == null) {
             return null;
         }
@@ -19,13 +25,13 @@ public class GestaoTreinoImpl implements IGestaoTreino {
     }
 
     @Override
-    public TreinoDiario buscarTreino(Aluno aluno, DayOfWeek dia) {
+    public TreinoDiario buscarTreino(Aluno aluno, DayOfWeek dia) throws RemoteException {
         // Busca no mapa específico deste aluno
         return aluno == null ? null : aluno.getCronograma().get(dia);
     }
 
     @Override
-    public TreinoDiario atualizarTreino(Aluno aluno, DayOfWeek dia, TreinoDiario treino) {
+    public TreinoDiario atualizarTreino(Aluno aluno, DayOfWeek dia, TreinoDiario treino) throws RemoteException {
         if (aluno == null) {
             return null;
         }
@@ -35,13 +41,13 @@ public class GestaoTreinoImpl implements IGestaoTreino {
     }
 
     @Override
-    public void excluirTreino(Aluno aluno, DayOfWeek dia) {
+    public void excluirTreino(Aluno aluno, DayOfWeek dia) throws RemoteException {
         if (aluno == null) return;
         aluno.getCronograma().remove(dia);
     }
 
     @Override
-    public String avaliarDesempenho(Aluno aluno) {
+    public String avaliarDesempenho(Aluno aluno) throws RemoteException {
         if (aluno == null) return "Aluno não encontrado";
         int totalTreinos = aluno.getCronograma().size();
         return "O aluno " + aluno.getNome() + " tem " + totalTreinos + " treinos agendados na semana.";
