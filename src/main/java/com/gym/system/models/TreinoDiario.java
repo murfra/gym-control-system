@@ -7,7 +7,7 @@ import java.util.List;
 public class TreinoDiario {
     private DayOfWeek diaDaSemana;
     private String grupoMuscular;
-    private List<Exercicio> exercicios= new ArrayList<>();
+    private List<Exercicio> exercicios = new ArrayList<>();
 
     // Construtor vazio, os treinos serão gerenciados pelo serviço
     public TreinoDiario() {}

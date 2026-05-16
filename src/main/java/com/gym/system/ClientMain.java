@@ -20,7 +20,7 @@ public class ClientMain {
             Scanner sc = new Scanner(System.in);
 
             // ==========================================
-            // 1. TESTES CRUD (MANTIDOS EXATAMENTE)
+            // 1. TESTES CRUD
             // ==========================================
             System.out.println("=== INICIANDO TESTES CRUD ===\n");
 
@@ -60,20 +60,20 @@ public class ClientMain {
             System.out.println("Funcionários cadastrados:");
             for (Funcionario f : fList) System.out.println(f.getNome() + " | " + f.getTurno());
 
-            System.out.println("\n✅ Testes CRUD finalizados.\n");
+            System.out.println("\nTestes CRUD finalizados.\n");
 
             // ==========================================
             // 2. QUESTÃO 5: SISTEMA DE VOTAÇÃO INTERATIVO
             // ==========================================
-            System.out.println("🗳️ === INICIANDO SISTEMA DE VOTAÇÃO ===");
+            System.out.println("=== INICIANDO SISTEMA DE VOTAÇÃO ===");
 
-            System.out.print("👤 Login para votação (ex: aluno): ");
+            System.out.print("Login para votação (ex: aluno): ");
             String user = sc.next();
-            System.out.print("🔑 Senha (ex: 123): ");
+            System.out.print("Senha (ex: 123): ");
             String pass = sc.next();
 
             if (!client.loginVotacao(user, pass)) {
-                System.out.println("❌ Credenciais inválidas. Encerrando...");
+                System.out.println("Credenciais inválidas. Encerrando...");
                 client.desconectar();
                 return;
             }
@@ -81,12 +81,12 @@ public class ClientMain {
             // Lista as modalidades e mostra o deadline
             client.listarModalidades();
 
-            System.out.print("👉 Digite o ID da modalidade para votar: ");
+            System.out.print("Digite o ID da modalidade para votar: ");
             int idVoto = sc.nextInt();
             client.votar(idVoto);
 
-            System.out.println("\n⏳ Votação em andamento. O servidor só libera resultados após o prazo expirar.");
-            System.out.println("💡 Enquanto espera, observe os avisos multicast aparecendo no console!");
+            System.out.println("\nVotação em andamento. O servidor só libera resultados após o prazo expirar.");
+            System.out.println("Enquanto espera, observe os avisos multicast aparecendo no console!");
 
             // Loop interativo para tentar ver os resultados
             while (true) {
@@ -96,10 +96,10 @@ public class ClientMain {
                 if ("resultados".equalsIgnoreCase(cmd)) {
                     try {
                         client.verResultados();
-                        System.out.println("\n🎉 Votação concluída com sucesso!");
+                        System.out.println("\nVotação concluída com sucesso!");
                         break;
                     } catch (IOException e) {
-                        System.out.println("⏳ " + e.getMessage() + " (Aguarde mais um pouco ou tente novamente)");
+                        System.out.println(e.getMessage() + " (Aguarde mais um pouco ou tente novamente)");
                     }
                 } else if ("sair".equalsIgnoreCase(cmd)) {
                     break;
