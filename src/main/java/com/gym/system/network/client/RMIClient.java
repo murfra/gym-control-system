@@ -27,7 +27,7 @@ public class RMIClient {
 
             // 1. Cria objeto Aluno e Treino
             Aluno aluno = new Aluno("123.456.789-00", "João Silva", LocalDate.of(1998, 3, 15), "99999-0000", "joao@email.com", null, Experiencia.INICIANTE);
-            // Fixa matrícula para teste determinístico
+            // Fixando a matrícula para teste
             aluno.setMatricula("ALU-TEST-01");
 
             TreinoDiario treino = new TreinoDiario();
