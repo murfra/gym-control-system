@@ -1,10 +1,8 @@
 package com.gym.system.services;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.gym.system.interfaces.IGestaoTreino;
 import com.gym.system.models.Aluno;
 import com.gym.system.models.TreinoDiario;
-import com.gym.system.util.JsonIOUtil;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

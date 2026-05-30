@@ -21,15 +21,8 @@ public class Aluno extends Pessoa {
         this.cronograma = new HashMap<>();
     }
 
-    public Aluno(@JsonProperty("cpf") String cpf,
-                 @JsonProperty("nome") String nome,
-                 @JsonProperty("dataNascimento") LocalDate dataNascimento,
-                 @JsonProperty("telefone") String telefone,
-                 @JsonProperty("email") String email,
-                 @JsonProperty("endereco") Endereco endereco,
-                 @JsonProperty("matricula") String matricula,
-                 @JsonProperty("nivelExperiencia") Experiencia nivelExperiencia,
-                 @JsonProperty("cronograma") Map<DayOfWeek, TreinoDiario> cronograma) {
+    public Aluno(String cpf, String nome, LocalDate dataNascimento, String telefone, String email, Endereco endereco,
+                 String matricula, Experiencia nivelExperiencia, Map<DayOfWeek, TreinoDiario> cronograma) {
         super(cpf, nome, dataNascimento, telefone, email, endereco);
         this.matricula = matricula;
         this.nivelExperiencia = nivelExperiencia;

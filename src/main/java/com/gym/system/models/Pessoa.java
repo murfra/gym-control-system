@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public abstract class Pessoa implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public abstract class Pessoa{
     private String cpf;
     private String telefone;
     private String nome;
@@ -72,7 +70,6 @@ public abstract class Pessoa implements Serializable {
         this.email = email;
     }
 
-    @JsonIgnore //Ignorar endereço na serialização
     public Endereco getEndereco() {
         return endereco;
     }

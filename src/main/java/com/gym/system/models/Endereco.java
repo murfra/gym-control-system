@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class Endereco implements Serializable {
+public class Endereco {
     private String logradouro;
     private String numero;
     private String bairro;
@@ -12,12 +12,7 @@ public class Endereco implements Serializable {
     private String estado;
     private String cep;
 
-    public Endereco(@JsonProperty("logradouro") String logradouro,
-                    @JsonProperty("numero") String numero,
-                    @JsonProperty("bairro") String bairro,
-                    @JsonProperty("cidade") String cidade,
-                    @JsonProperty("estado") String estado,
-                    @JsonProperty("cep") String cep) {
+    public Endereco(String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
         this.numero = numero;
         this.logradouro = logradouro;
         this.bairro = bairro;

@@ -10,15 +10,8 @@ public class Funcionario extends Pessoa {
     private float salario;
     private Turno turno;
 
-    public Funcionario(@JsonProperty("cpf") String cpf,
-                       @JsonProperty("nome") String nome,
-                       @JsonProperty("dataNascimento") LocalDate dataNascimento,
-                       @JsonProperty("telefone") String telefone,
-                       @JsonProperty("email") String email,
-                       @JsonProperty("endereco") Endereco endereco,
-                       @JsonProperty("senha") String senha,
-                       @JsonProperty("salario") float salario,
-                       @JsonProperty("turno") Turno turno) {
+    public Funcionario(String cpf, String nome, LocalDate dataNascimento, String telefone, String email,
+                       Endereco endereco, String senha, float salario, Turno turno) {
         super(cpf, nome, dataNascimento, telefone, email, endereco);
         this.senha = senha;
         this.salario = salario;
