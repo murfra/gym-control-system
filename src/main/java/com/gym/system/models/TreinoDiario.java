@@ -1,10 +1,13 @@
 package com.gym.system.models;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreinoDiario {
+public class TreinoDiario implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private DayOfWeek diaDaSemana;
     private String grupoMuscular;
     private List<Exercicio> exercicios = new ArrayList<>();

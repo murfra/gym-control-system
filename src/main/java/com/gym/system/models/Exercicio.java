@@ -1,12 +1,25 @@
 package com.gym.system.models;
 
-public class Exercicio {
+import java.io.Serializable;
+
+public class Exercicio implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String nome;
     private String descricao;
     private int series;
     private int repeticoes;
     private int descanso; // Em segundos
     private int carga;
+
+    public Exercicio() {
+        this.nome = "";
+        this.descricao = "Sem descrição";
+        this.series = 0;
+        this.repeticoes = 0;
+        this.descanso = 0;
+        this.carga = 0;
+    }
 
     public Exercicio(String nome, int series, int repeticoes, int descanso, int carga) {
         this.nome = nome;
