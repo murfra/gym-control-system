@@ -1,4 +1,5 @@
 package com.gym.system.api.controllers;
+
 import com.gym.system.models.Aluno;
 import com.gym.system.models.Exercicio;
 import com.gym.system.models.TreinoDiario;

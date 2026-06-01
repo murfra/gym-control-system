@@ -1,6 +1,7 @@
 package com.gym.system.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Exercicio implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -85,5 +86,17 @@ public class Exercicio implements Serializable {
 
     public void setCarga(int carga) {
         this.carga = carga;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Exercicio exercicio = (Exercicio) o;
+        return series == exercicio.series && repeticoes == exercicio.repeticoes && descanso == exercicio.descanso && carga == exercicio.carga && Objects.equals(nome, exercicio.nome) && Objects.equals(descricao, exercicio.descricao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, descricao, series, repeticoes, descanso, carga);
     }
 }
