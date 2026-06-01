@@ -99,8 +99,7 @@ public class TreinoService {
     public boolean adicionarExercicio(String matriculaAluno, DayOfWeek dia, Exercicio exercicio) {
         TreinoDiario treino = gestaoTreinoService.obterTreinoDia(matriculaAluno, dia);
         if (treino != null && exercicio != null) {
-            treino.getExercicios().add(exercicio);
-            return true;
+            return gestaoTreinoService.adicionarExercicio(matriculaAluno, dia, exercicio);
         }
         return false;
     }
@@ -115,7 +114,7 @@ public class TreinoService {
     public boolean removerExercicio(String matriculaAluno, DayOfWeek dia, String nomeExercicio) {
         TreinoDiario treino = gestaoTreinoService.obterTreinoDia(matriculaAluno, dia);
         if (treino != null) {
-            return treino.getExercicios().removeIf(ex -> ex.getNome().equals(nomeExercicio));
+            return gestaoTreinoService.removerExercicio(matriculaAluno, dia, nomeExercicio);
         }
         return false;
     }
