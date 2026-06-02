@@ -1,5 +1,8 @@
 package com.gym.system.services;
 
+import com.gym.system.events.GymEventPublisher;
+import com.gym.system.events.AlunoCadastradoEvent;
+import com.gym.system.events.TreinoCriadoEvent;
 import com.gym.system.interfaces.ITreinoBusiness;
 import com.gym.system.models.Aluno;
 import com.gym.system.models.TreinoDiario;
@@ -8,19 +11,25 @@ import com.gym.system.models.redis.TreinoDiarioRedis;
 import com.gym.system.services.repository.TreinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.time.DayOfWeek;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import com.gym.system.models.Exercicio;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class GestaoTreinoService implements ITreinoBusiness {
-    
+
     @Autowired
     private TreinoRepository treinoRepository;
+
+    @Autowired
+    private GymEventPublisher eventPublisher;
 
     @Override
     public boolean criarTreino(Aluno aluno, DayOfWeek dia, TreinoDiario treino) {
@@ -43,6 +52,7 @@ public class GestaoTreinoService implements ITreinoBusiness {
 
             // Persiste no Redis
             treinoRepository.save(alunoRedis);
+            eventPublisher.publishEvent(new TreinoCriadoEvent(aluno.getMatricula(), dia, treino.getGrupoMuscular()));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -177,18 +187,18 @@ public class GestaoTreinoService implements ITreinoBusiness {
             return new HashMap<>();
         }
     }
+
     /**
      * Remove um aluno do Redis
      */
-    public boolean removerAluno(String matricula)  {
-        try  {
-            if (!treinoRepository.existsByMatricula(matricula))  {
+    public boolean removerAluno(String matricula) {
+        try {
+            if (!treinoRepository.existsByMatricula(matricula)) {
                 return false;
             }
             treinoRepository.deleteByMatricula(matricula);
             return true;
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -213,191 +223,190 @@ public class GestaoTreinoService implements ITreinoBusiness {
     /**
      * Salva ou atualiza um aluno no Redis.
      */
-    public boolean salvarAluno(Aluno aluno)  {
-        if (aluno == null || aluno.getMatricula() == null || aluno.getMatricula().isBlank())  {
+    public boolean salvarAluno(Aluno aluno) {
+        if (aluno == null || aluno.getMatricula() == null || aluno.getMatricula().isBlank()) {
             return false;
         }
-        try  {
+        try {
             AlunoRedis alunoRedis = new AlunoRedis(aluno);
-            if (alunoRedis.getCronograma() == null)  {
+            if (alunoRedis.getCronograma() == null) {
                 alunoRedis.setCronograma(new HashMap<>());
             }
             treinoRepository.save(alunoRedis);
+            eventPublisher.publishEvent(new AlunoCadastradoEvent(aluno.getMatricula(), aluno.getNome(), aluno.getEmail()));
             return true;
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
     /**
      * Verifica se existe aluno com a matrícula informada.
      */
-    public boolean existeAluno(String matricula)  {
-        try  {
+    public boolean existeAluno(String matricula) {
+        try {
             return treinoRepository.existsByMatricula(matricula);
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
     /**
      * Busca aluno por CPF.
      */
-    public Aluno buscarAlunoPorCpf(String cpf)  {
-        try  {
+    public Aluno buscarAlunoPorCpf(String cpf) {
+        try {
             return treinoRepository.findByCpf(cpf);
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
     /**
      * Busca aluno por e-mail.
      */
-    public Aluno buscarAlunoPorEmail(String email)  {
-        try  {
+    public Aluno buscarAlunoPorEmail(String email) {
+        try {
             return treinoRepository.findByEmail(email);
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
     /**
      * Retorna o cronograma completo de um aluno.
      */
-    public Map<DayOfWeek, TreinoDiario> obterCronogramaAluno(String matricula)  {
-        try  {
+    public Map<DayOfWeek, TreinoDiario> obterCronogramaAluno(String matricula) {
+        try {
             AlunoRedis aluno = treinoRepository.findByMatricula(matricula);
-            if (aluno == null || aluno.getCronograma() == null)  {
+            if (aluno == null || aluno.getCronograma() == null) {
                 return new HashMap<>();
             }
             return aluno.getCronograma();
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return new HashMap<>();
         }
     }
+
     /**
      * Lista os exercícios de um treino específico.
      */
-    public List<Exercicio> listarExercicios(String matricula, DayOfWeek dia)  {
-        try  {
+    public List<Exercicio> listarExercicios(String matricula, DayOfWeek dia) {
+        try {
             TreinoDiario treino = obterTreinoDia(matricula, dia);
-            if (treino == null || treino.getExercicios() == null)  {
+            if (treino == null || treino.getExercicios() == null) {
                 return new ArrayList<>();
             }
             return new ArrayList<>(treino.getExercicios());
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
+
     /**
      * Adiciona um exercício a um treino e persiste no Redis.
      */
-    public boolean adicionarExercicio(String matricula, DayOfWeek dia, Exercicio exercicio)  {
-        if (matricula == null || dia == null || exercicio == null)  {
+    public boolean adicionarExercicio(String matricula, DayOfWeek dia, Exercicio exercicio) {
+        if (matricula == null || dia == null || exercicio == null) {
             return false;
         }
-        try  {
+        try {
             AlunoRedis aluno = treinoRepository.findByMatricula(matricula);
-            if (aluno == null || aluno.getCronograma() == null)  {
+            if (aluno == null || aluno.getCronograma() == null) {
                 return false;
             }
             TreinoDiario treino = aluno.getCronograma().get(dia);
-            if (treino == null)  {
+            if (treino == null) {
                 return false;
             }
-            if (treino.getExercicios() == null)  {
+            if (treino.getExercicios() == null) {
                 treino.setExercicios(new ArrayList<>());
             }
             treino.getExercicios().add(exercicio);
             aluno.getCronograma().put(dia, treino);
             treinoRepository.save(aluno);
             return true;
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
     /**
      * Remove um exercício de um treino e persiste no Redis.
      */
-    public boolean removerExercicio(String matricula, DayOfWeek dia, String nomeExercicio)  {
-        if (matricula == null || dia == null || nomeExercicio == null || nomeExercicio.isBlank())  {
+    public boolean removerExercicio(String matricula, DayOfWeek dia, String nomeExercicio) {
+        if (matricula == null || dia == null || nomeExercicio == null || nomeExercicio.isBlank()) {
             return false;
         }
-        try  {
+        try {
             AlunoRedis aluno = treinoRepository.findByMatricula(matricula);
-            if (aluno == null || aluno.getCronograma() == null)  {
+            if (aluno == null || aluno.getCronograma() == null) {
                 return false;
             }
             TreinoDiario treino = aluno.getCronograma().get(dia);
-            if (treino == null || treino.getExercicios() == null)  {
+            if (treino == null || treino.getExercicios() == null) {
                 return false;
             }
-            boolean removeu = treino.getExercicios()
-                    .removeIf(exercicio -> exercicio.getNome().equalsIgnoreCase(nomeExercicio));
-            if (!removeu)  {
+            boolean removeu = treino.getExercicios().removeIf(exercicio -> exercicio.getNome().equalsIgnoreCase(nomeExercicio));
+            if (!removeu) {
                 return false;
             }
             aluno.getCronograma().put(dia, treino);
             treinoRepository.save(aluno);
             return true;
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
     /**
      * Remove o treino de um dia específico.
      */
-    public boolean removerTreino(String matricula, DayOfWeek dia)  {
-        if (matricula == null || dia == null)  {
+    public boolean removerTreino(String matricula, DayOfWeek dia) {
+        if (matricula == null || dia == null) {
             return false;
         }
-        try  {
+        try {
             AlunoRedis aluno = treinoRepository.findByMatricula(matricula);
-            if (aluno == null || aluno.getCronograma() == null)  {
+            if (aluno == null || aluno.getCronograma() == null) {
                 return false;
             }
-            if (!aluno.getCronograma().containsKey(dia))  {
+            if (!aluno.getCronograma().containsKey(dia)) {
                 return false;
             }
             aluno.getCronograma().remove(dia);
             treinoRepository.save(aluno);
             return true;
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
     /**
      * Remove todos os treinos do cronograma do aluno.
      */
-    public boolean limparCronograma(String matricula)  {
-        if (matricula == null || matricula.isBlank())  {
+    public boolean limparCronograma(String matricula) {
+        if (matricula == null || matricula.isBlank()) {
             return false;
         }
-        try  {
+        try {
             AlunoRedis aluno = treinoRepository.findByMatricula(matricula);
-            if (aluno == null)  {
+            if (aluno == null) {
                 return false;
             }
             aluno.setCronograma(new HashMap<>());
             treinoRepository.save(aluno);
             return true;
-        }
-        catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
