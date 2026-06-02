@@ -3,7 +3,7 @@ package com.gym.system.services;
 import com.gym.system.events.GymEventPublisher;
 import com.gym.system.events.AlunoCadastradoEvent;
 import com.gym.system.events.TreinoCriadoEvent;
-import com.gym.system.interfaces.ITreinoBusiness;
+import com.gym.system.interfaces.IGestaoTreino;
 import com.gym.system.models.Aluno;
 import com.gym.system.models.TreinoDiario;
 import com.gym.system.models.redis.AlunoRedis;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.gym.system.models.Exercicio;
 
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GestaoTreinoService implements ITreinoBusiness {
+public class GestaoTreinoService implements IGestaoTreino {
 
     @Autowired
     private TreinoRepository treinoRepository;

@@ -7,7 +7,7 @@ import java.time.DayOfWeek;
 /**
  * Interface para os métodos de negócio de gestão de treinos
  */
-public interface ITreinoBusiness {
+public interface IGestaoTreino {
 
     /**
      * Cria um novo treino para um aluno em um determinado dia da semana
