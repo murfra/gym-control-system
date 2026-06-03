@@ -1,5 +1,7 @@
 gym-api/target/
 !gym-api/.mvn/wrapper/maven-wrapper.jar
+gym-worker/target/
+!gym-worker/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
