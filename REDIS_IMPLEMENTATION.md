@@ -2,7 +2,7 @@
 
 ## O que foi implementado
 
-### 1. **Interface de Negócio (ITreinoBusiness)**
+### 1. **Interface de Negócio (IGestraoTreino)**
 
 Localização: `src/main/java/com/gym/system/interfaces/ITreinoBusiness.java`
 

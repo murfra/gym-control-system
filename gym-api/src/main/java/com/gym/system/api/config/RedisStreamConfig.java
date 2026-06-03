@@ -1,7 +1,7 @@
 package com.gym.system.api.config;
 
-import com.gym.system.events.listeners.NotificacaoSubscriber;
 import com.gym.system.events.listeners.AuditoriaSubscriber;
+import com.gym.system.events.listeners.NotificacaoSubscriber;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

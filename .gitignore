@@ -1,5 +1,5 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+gym-api/target/
+!gym-api/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
@@ -16,6 +16,7 @@ target/
 
 /venv
 /.venv
+.venv/
 
 ### Eclipse ###
 .apt_generated
