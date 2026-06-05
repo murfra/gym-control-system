@@ -152,15 +152,13 @@ function printRelatorioAvaliacao(title, status, data) {
     // O console.log interpreta perfeitamente o formato textual do StringBuilder vindo no JSON
     console.log(`Resposta:\n${data.avaliacao}`);
   } else {
-    console.log("❌ Não foi possível recuperar o relatório.");
+    console.log("Não foi possível recuperar o relatório.");
     console.log(`Resposta bruta: ${JSON.stringify(data)}`);
   }
-
-  console.log("==================================================");
 }
 
 // ==========================================
-// SCRIPT DE APRESENTAÇÃO (DEMO)
+// SCRIPT PARA EXECUÇÃO (DEMO)
 // ==========================================
 async function runDemo() {
   const api = new GymClient("http://localhost:8080/api/treinos");
@@ -202,7 +200,7 @@ async function runDemo() {
     cargas: [80, 15]
   };
 
-  console.log("🚀 INICIANDO DEMONSTRAÇÃO DA API GYM-SYSTEM (JAVASCRIPT) 🚀");
+  console.log("INICIANDO DEMONSTRAÇÃO DA API GYM-SYSTEM (JAVASCRIPT)");
 
   try {
     // 1. Cadastrar Aluno
@@ -259,5 +257,5 @@ async function runDemo() {
   }
 }
 
-// Executa a demonstração
 runDemo();
+

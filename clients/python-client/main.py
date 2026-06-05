@@ -115,6 +115,13 @@ class GymClient:
         return self._request("POST", f"/avaliar/{matricula}", params={"dia": dia}, json=avaliacao_data)
 
 
+def print_step(title, status, data):
+    """Formata o output para a apresentação."""
+    print(f"\n--- {title} ---")
+    print(f"Status: {status}")
+    print(f"Resposta: {json.dumps(data, indent=2, ensure_ascii=False)}")
+
+
 def print_relatorio_avaliacao(title:str, status: int, data: dict):
     """
     Imprime o relatório de avaliação de desempenho de forma limpa,
@@ -131,22 +138,14 @@ def print_relatorio_avaliacao(title:str, status: int, data: dict):
         # Fallback caso dê algum erro no backend
         print("Não foi possível recuperar o relatório.")
         print(f"Resposta bruta: {data}")
-        
-    print(f"==================================================")
 
 
 # ==========================================
-# SCRIPT DE APRESENTAÇÃO (DEMO)
+# SCRIPT PARA EXECUÇÃO (DEMO)
 # ==========================================
 if __name__ == "__main__":
     # Instancia o cliente apontando para o servidor local
     api = GymClient(base_url="http://localhost:8080/api/treinos")
-    
-    def print_step(title, status, data):
-        """Formata o output para a apresentação."""
-        print(f"\n--- {title} ---")
-        print(f"Status: {status}")
-        print(f"Resposta: {json.dumps(data, indent=2, ensure_ascii=False)}")
 
     # Dados de Exemplo
     aluno_mock = {
@@ -186,7 +185,7 @@ if __name__ == "__main__":
         "cargas": [80, 15]
     }
 
-    print("🚀 INICIANDO DEMONSTRAÇÃO DA API GYM-SYSTEM 🚀")
+    print("INICIANDO DEMONSTRAÇÃO DA API GYM-SYSTEM")
     
     # 1. Cadastrar Aluno (Esperado: 200)
     status, res = api.cadastrar_aluno(aluno_mock)

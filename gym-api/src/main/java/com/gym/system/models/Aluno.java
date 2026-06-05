@@ -1,6 +1,5 @@
     package com.gym.system.models;
 
-    import com.fasterxml.jackson.annotation.JsonProperty;
     import com.gym.system.models.enums.Experiencia;
 
     import java.time.DayOfWeek;
