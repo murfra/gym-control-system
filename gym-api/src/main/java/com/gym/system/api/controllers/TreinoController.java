@@ -87,7 +87,6 @@ public class TreinoController {
             response.put("sucesso", sucesso);
             response.put("mensagem", sucesso ? "Aluno cadastrado com sucesso" : "Falha ao cadastrar aluno");
             response.put("matriculaAluno", aluno.getMatricula());
-            System.out.println(aluno.getMatricula());
             return sucesso ? ResponseEntity.ok(response) : ResponseEntity.badRequest().body(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
